@@ -1,6 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { DatabaseService } from "src/database/database.service";
 import { UserRow } from "../types/user.types";
+import { CreateUserDto } from "../dto/create-user.dto";
+import { UpdateUserDto } from "../dto/update-user.dto";
 
 @Injectable()
 export class UserRepository{
@@ -9,13 +11,69 @@ export class UserRepository{
     async findByGithubId(githubId:number) : Promise<UserRow | null>{
         const result = await this.databaseService.query<UserRow> (
             `
-                SELECT *
-                FROM users
-                WHERE github_id = $1
+            SELECT *
+            FROM users
+            WHERE github_id = $1
             `,
             [githubId],
         );
 
         return result.rows[0] ?? null;
+    }
+
+    async create(dto:CreateUserDto):Promise<UserRow>{
+        const result = await this.databaseService.query<UserRow>(
+            `
+            INSERT INTO users(
+                id,
+                github_id,
+                username,
+                display_name,
+                email,
+                avatar_url,
+                github_profile_url
+            )
+            VALUES ($1,$2,$3,$4,$5,$6,$7)
+            RETURNING *;
+            `,
+            [
+                dto.id,
+                dto.githubId,
+                dto.username,
+                dto.displayName,
+                dto.email,
+                dto.avatarUrl,
+                dto.githubProfileUrl
+            ]
+        );
+
+        return result.rows[0];
+    }
+
+    async update(dto: UpdateUserDto): Promise<UserRow> {
+        const result = await this.databaseService.query<UserRow>(
+            `
+            UPDATE users
+            SET
+            username = $2,
+            display_name = $3,
+            email = $4,
+            avatar_url = $5,
+            github_profile_url = $6,
+            updated_at = NOW()
+            WHERE github_id = $1
+            RETURNING *;
+            `,
+            [
+            dto.githubId,
+            dto.username,
+            dto.displayName,
+            dto.email,
+            dto.avatarUrl,
+            dto.githubProfileUrl,
+            ],
+        );
+
+        return result.rows[0];
     }
 }
