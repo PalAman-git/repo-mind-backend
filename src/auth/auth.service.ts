@@ -51,4 +51,8 @@ export class AuthService {
         }
     }
 
+    async getCurrentUser(id:string){
+        return this.userRepo.findById(id);
+    }
+
 }

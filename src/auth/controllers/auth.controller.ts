@@ -9,6 +9,7 @@ import {
 import { GithubAuthGuard } from '../guards/github-auth.guard';
 import { AuthService } from '../auth.service';
 import { ConfigService } from '@nestjs/config';
+import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -29,11 +30,29 @@ export class AuthController {
     @Req() req: any,
     @Res() res: any,
   ) {
-    const token = await this.authService.login(req.user);
+    const {accessToken} = await this.authService.login(req.user);
     const FRONTEND_URL = this.configService.getOrThrow<string>('FRONTEND_URL');
 
+    res.cookie(
+      "accessToken",
+      accessToken,
+      {
+        httpOnly:true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite:"lax"
+      }
+    )
+
     return res.redirect(
-      `${FRONTEND_URL}/auth/callback?token=${token}`
+      `${FRONTEND_URL}/dashboard`
     );
+  }
+
+  @Get('me')
+  @UseGuards(JwtAuthGuard)
+  async getMe(
+    @Req() req:any,
+  ){
+    return this.authService.getCurrentUser(req.user.id);
   }
 }

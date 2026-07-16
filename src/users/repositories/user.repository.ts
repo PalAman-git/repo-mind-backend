@@ -21,6 +21,19 @@ export class UserRepository{
         return result.rows[0] ?? null;
     }
 
+    async findById(id:string):Promise< UserRow| null>{
+        const result = await this.databaseService.query<UserRow>(
+            `
+            SELECT * 
+            FROM users
+            WHERE id = $1
+            `,
+            [id],
+        );
+
+        return result.rows[0] ?? null;
+    }
+
     async create(dto:CreateUserDto):Promise<UserRow>{
         const result = await this.databaseService.query<UserRow>(
             `

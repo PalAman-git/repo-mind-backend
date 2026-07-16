@@ -9,6 +9,10 @@ export interface JwtPayload {
   githubId: number;
 }
 
+const cookieExtractor = (req: any) => {
+  return req?.cookies?.accessToken ?? null;
+};
+
 @Injectable()
 export class JwtStrategy extends PassportStrategy(
   Strategy,
@@ -16,7 +20,9 @@ export class JwtStrategy extends PassportStrategy(
 ) {
   constructor(config: ConfigService) {
     super({
-      jwtFromRequest:ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest:ExtractJwt.fromExtractors([
+        cookieExtractor
+      ]),
       ignoreExpiration: false,
       secretOrKey: config.getOrThrow('JWT_SECRET'),
     });
