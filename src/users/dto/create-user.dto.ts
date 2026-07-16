@@ -1,7 +1,7 @@
 export class CreateUserDto {
   id!: string;
   githubId!: number;
-  username!: string;
+  username: string | undefined;
   displayName?: string | null;
   email?: string | null;
   avatarUrl?: string | null;

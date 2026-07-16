@@ -7,6 +7,7 @@ import { AuthService } from './auth.service';
 import { AuthController } from './controllers/auth.controller';
 
 import { GithubStrategy } from './strategies/github.strategy';
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 import { UsersModule } from '../users/users.module';
 
@@ -17,7 +18,7 @@ import { UsersModule } from '../users/users.module';
     JwtModule.registerAsync({
       imports: [ConfigModule],
 
-      inject: [ConfigService],
+      inject: [ConfigService],  
 
       useFactory: (config: ConfigService) => ({
         secret: config.getOrThrow('JWT_SECRET'),
@@ -31,6 +32,7 @@ import { UsersModule } from '../users/users.module';
   providers: [
     AuthService,
     GithubStrategy,
+    JwtStrategy
   ],
 
   controllers: [

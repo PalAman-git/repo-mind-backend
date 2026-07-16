@@ -1,7 +1,7 @@
 export interface UserRow {
   id: string;
   github_id: number;
-  username: string;
+  username: string | undefined;
   display_name: string | null;
   email: string | null;
   avatar_url: string | null;
