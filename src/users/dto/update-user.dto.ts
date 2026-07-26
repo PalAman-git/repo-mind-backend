@@ -5,4 +5,5 @@ export class UpdateUserDto {
   email: string | null = null;
   avatarUrl: string | null = null;
   githubProfileUrl: string | null = null;
+  githubAccessToken:string | null = null;
 }

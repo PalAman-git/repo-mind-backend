@@ -8,4 +8,5 @@ export interface UserRow {
   github_profile_url: string | null;
   created_at: Date;
   updated_at: Date;
+  github_access_token: string;
 }

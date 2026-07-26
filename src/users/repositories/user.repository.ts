@@ -21,7 +21,7 @@ export class UserRepository{
         return result.rows[0] ?? null;
     }
 
-    async findById(id:string):Promise< UserRow| null>{
+    async findById(id:string){
         const result = await this.databaseService.query<UserRow>(
             `
             SELECT * 
@@ -34,7 +34,7 @@ export class UserRepository{
         return result.rows[0] ?? null;
     }
 
-    async create(dto:CreateUserDto):Promise<UserRow>{
+    async createUser(dto:CreateUserDto):Promise<UserRow>{
         const result = await this.databaseService.query<UserRow>(
             `
             INSERT INTO users(
@@ -44,9 +44,10 @@ export class UserRepository{
                 display_name,
                 email,
                 avatar_url,
-                github_profile_url
+                github_profile_url,
+                github_access_token
             )
-            VALUES ($1,$2,$3,$4,$5,$6,$7)
+            VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
             RETURNING *;
             `,
             [
@@ -56,7 +57,8 @@ export class UserRepository{
                 dto.displayName,
                 dto.email,
                 dto.avatarUrl,
-                dto.githubProfileUrl
+                dto.githubProfileUrl,
+                dto.githubAccessToken
             ]
         );
 
@@ -73,6 +75,7 @@ export class UserRepository{
             email = $4,
             avatar_url = $5,
             github_profile_url = $6,
+            github_access_token = $7,
             updated_at = NOW()
             WHERE github_id = $1
             RETURNING *;
@@ -84,6 +87,7 @@ export class UserRepository{
             dto.email,
             dto.avatarUrl,
             dto.githubProfileUrl,
+            dto.githubAccessToken
             ],
         );
 

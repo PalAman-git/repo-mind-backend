@@ -6,4 +6,5 @@ export class CreateUserDto {
   email?: string | null;
   avatarUrl?: string | null;
   githubProfileUrl?: string | null;
+  githubAccessToken?:string|null;
 }

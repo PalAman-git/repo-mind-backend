@@ -1,6 +1,7 @@
 import {
   Controller,
   Get,
+  Post,
   Req,
   Res,
   UseGuards,
@@ -46,6 +47,19 @@ export class AuthController {
     return res.redirect(
       `${FRONTEND_URL}/dashboard`
     );
+  }
+
+  @Post('logout')
+  logout(@Res({passthrough:true}) res: any){
+    res.clearCookie("accessToken",{
+      httpOnly:true,
+      secure:process.env.NODE_ENV === "production",
+      sameSite:"lax"
+    })
+
+    return {
+      message:"Logged out successfully."
+    }
   }
 
   @Get('me')

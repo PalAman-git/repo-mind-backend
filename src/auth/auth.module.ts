@@ -17,7 +17,6 @@ import { UsersModule } from '../users/users.module';
     PassportModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
-
       inject: [ConfigService],  
 
       useFactory: (config: ConfigService) => ({
