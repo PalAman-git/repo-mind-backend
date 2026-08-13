@@ -44,37 +44,7 @@ Context-aware Answer
 
 ## Architecture
 
-```text
-                    ┌───────────────┐
-                    │   GitHub API  │
-                    └───────┬───────┘
-                            ↓
-                    ┌───────────────┐
-                    │   NestJS API  │
-                    └───────┬───────┘
-                            ↓
-                    ┌───────────────┐
-                    │ Code Chunking │
-                    └───────┬───────┘
-                            ↓
-                    ┌───────────────┐
-                    │    OpenAI     │
-                    │   Embeddings  │
-                    └───────┬───────┘
-                            ↓
-                    ┌───────────────┐
-                    │   Supabase    │
-                    │   pgvector    │
-                    └───────┬───────┘
-                            ↓
-                    ┌───────────────┐
-                    │      RAG      │
-                    └───────┬───────┘
-                            ↓
-                    ┌───────────────┐
-                    │      LLM      │
-                    └───────────────┘
-```
+![Repo-Mind Architecture](docs/architecture.png)
 
 ## Project Structure
 
