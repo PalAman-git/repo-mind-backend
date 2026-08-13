@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { GithubModule } from './github/github.module';
 import { LlmModule } from './llm/llm.module';
+import { IngestionModule } from './ingestion/ingestion.module';
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { LlmModule } from './llm/llm.module';
     AuthModule,
     UsersModule,
     GithubModule,
-    LlmModule
+    LlmModule,
+    IngestionModule
   ],
 
   
