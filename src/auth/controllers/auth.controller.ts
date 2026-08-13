@@ -19,6 +19,11 @@ export class AuthController {
     private readonly configService:ConfigService
   ){}
 
+  @Get('/')
+  async homepage(@Res() res:any){
+    res.send("hello from home")
+  }
+
   @Get('github')
   @UseGuards(GithubAuthGuard)
   async githubLogin() {

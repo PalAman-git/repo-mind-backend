@@ -24,11 +24,24 @@ export class GithubService {
         return repositories;
     }
 
-    async getRepositoryTree(
-    owner: string,
-    repo: string,
-    branch: string,
-    ) 
+    async getPublicRepository(owner:string,repo:string){
+        const response = await fetch(
+            `https://api.github.com/repos/${owner}/${repo}`,
+            {
+                headers:{
+                    Accept:'application/vnd.github+json'
+                }
+            }
+        )
+
+        if(!response.ok){
+            throw new Error(`GitHub API error: ${response.status}`)
+        }
+
+        return response.json();
+    }
+
+    async getPublicRepositoryTree(owner: string,repo: string,branch: string,) 
     {
         const response = await fetch(
             `https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`,
@@ -46,11 +59,7 @@ export class GithubService {
         return response.json();
     }
 
-    async getFileContent(
-        owner: string,
-        repo: string,
-        path: string,
-        ) 
+    async getFileContent(owner: string,repo: string,path: string,) 
         {
             const response = await fetch(
                 `https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}`,
@@ -77,4 +86,6 @@ export class GithubService {
 
             return Buffer.from(data.content, 'base64').toString('utf-8');
         }
+
+
 }

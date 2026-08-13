@@ -6,6 +6,7 @@ import { UsersModule } from 'src/users/users.module';
 @Module({
   providers: [GithubService],
   imports:[UsersModule],
-  controllers: [GithubController]
+  controllers: [GithubController],
+  exports:[GithubService]
 })
 export class GithubModule {}

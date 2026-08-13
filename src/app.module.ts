@@ -8,6 +8,7 @@ import { GithubModule } from './github/github.module';
 import { LlmModule } from './llm/llm.module';
 import { IngestionModule } from './ingestion/ingestion.module';
 import { EmbeddingService } from './ai/embedding/embedding.service';
+import { RepoModule } from './repo/repo.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { EmbeddingService } from './ai/embedding/embedding.service';
     UsersModule,
     GithubModule,
     LlmModule,
-    IngestionModule
+    IngestionModule,
+    RepoModule
   ],
   providers: [EmbeddingService],
 
