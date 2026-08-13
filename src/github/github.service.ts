@@ -16,7 +16,7 @@ export class GithubService {
             },
         })
 
-        const repositories = await response.json();
+        const  repositories = await response.json();
         return repositories;
     }
 }

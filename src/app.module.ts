@@ -5,6 +5,7 @@ import { HealthModule } from './health/health.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { GithubModule } from './github/github.module';
+import { LlmModule } from './llm/llm.module';
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import { GithubModule } from './github/github.module';
     HealthModule,
     AuthModule,
     UsersModule,
-    GithubModule
+    GithubModule,
+    LlmModule
   ],
 
   
