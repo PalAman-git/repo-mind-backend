@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { GithubModule } from './github/github.module';
 import { LlmModule } from './llm/llm.module';
 import { IngestionModule } from './ingestion/ingestion.module';
+import { EmbeddingService } from './ai/embedding/embedding.service';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { IngestionModule } from './ingestion/ingestion.module';
     LlmModule,
     IngestionModule
   ],
+  providers: [EmbeddingService],
 
   
 })
