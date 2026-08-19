@@ -27,14 +27,16 @@ export class RepoService {
     }
 
     async indexRepository(repoUrl: string){
-        console.log('Repository: ',repoUrl);
-
         const {owner,repo} = this.parseGithubUrl(repoUrl);
         const defaultBranch = 'main'
 
         const repoTree = await this.githubService.getPublicRepositoryTree(owner,repo,defaultBranch);
 
         return repoTree;
+    }
+
+    async getFileContent(owner:string,repo:string,path:string){
+        const content = await this.githubService.getFileContent(owner,repo,path);
     }
 
 
