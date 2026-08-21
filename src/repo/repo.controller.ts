@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { RepoService } from './repo.service';
 
 @Controller('repo')
@@ -14,7 +14,7 @@ export class RepoController {
     async FileContent(
         @Param('owner') owner:string,
         @Param('repo') repo:string,
-        @Param('path') path:string,
+        @Query('path') path:string,
     ){
         return this.repoService.getFileContent(owner,repo,path);
     }

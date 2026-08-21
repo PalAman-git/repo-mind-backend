@@ -37,6 +37,8 @@ export class RepoService {
 
     async getFileContent(owner:string,repo:string,path:string){
         const content = await this.githubService.getFileContent(owner,repo,path);
+
+        return content;
     }
 
 
