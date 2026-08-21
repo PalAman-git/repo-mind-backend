@@ -46,9 +46,9 @@ export class GithubService {
         const response = await fetch(
             `https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`,
             {
-            headers: {
-                Accept: 'application/vnd.github+json',
-            },
+                headers: {
+                    Accept: 'application/vnd.github+json',
+                },
             },
         );
 
